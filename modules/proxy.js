@@ -1,3 +1,5 @@
+"use strict";
+
 const express = require('express');
 const router = express.Router();
 const http = require('http');
@@ -5,7 +7,6 @@ const m3u8 = require('m3u8');
 
 
 router.get('/', function (req, res) {
-    "use strict";
 
     let desiredUrl= req.query.url;
     let parser = m3u8.createStream();
