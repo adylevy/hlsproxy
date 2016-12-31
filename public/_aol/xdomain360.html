@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript"></script>
+</head>
+<body>
+<script>
+    (function () {
+        var s = document.getElementsByTagName('script')[0];
+        var e = (location.search.match(/\be=([^&$]+)\b/) || [])[1] || 'prod';
+        var v = (location.search.match(/\bv=([^&$]+)\b/) || [])[1] || 'latest';
+        s.src = 'https://cdn-ssl.vidible.tv/'+e+'/player/js/'+v+'/xdomain360.js';
+    })();
+</script>
+</body>
+</html>
