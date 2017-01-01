@@ -10,13 +10,14 @@ router.get('/', function (req, res) {
 
     let desiredUrl= req.query.url;
     let parser = m3u8.createStream();
-    let prefix = desiredUrl.replace(new RegExp('master.m3u8$'), '');
+    let rgx = new RegExp('(.*)?(\/.*.m3u8).*$');
+    let prefix = rgx.exec(desiredUrl)[1];
 
     http.get(desiredUrl , res => res.pipe(parser));
 
     parser.on('item', function(item) {
         let uri = item.get('uri');
-        if (!uri.startsWith('http')) {
+        if (uri && !uri.startsWith('http')) {
             item.set('uri', `${prefix}/${uri}`);
         }
     });
