@@ -72,7 +72,11 @@
         video.loop = true;
         video.muted = true;
         video.playsinline = true;
-        video.src = "http://hls.adylevy.com/serve?url=http://ak-videotruck.livelikecdn.com/hls/vods/361ff006-0401-41bd-a9bc-346634150289_,h264_2560x1440_8000k,h264_1920x1080_5000k,h264_1280x720_3000k,.mp4.urlset/master.m3u8";
+        var videoSrc = getParameterByName('src') || 'http://ak-videotruck.livelikecdn.com/hls/vods/361ff006-0401-41bd-a9bc-346634150289_,h264_2560x1440_8000k,h264_1920x1080_5000k,h264_1280x720_3000k,.mp4.urlset/master.m3u8';
+        if (videoSrc.indexOf('m3u8')>0){
+            videoSrc = `http://hls.adylevy.com/serve?url=${videoSrc}`;
+        }
+        video.src = videoSrc;
         video.setAttribute( 'webkit-playsinline', 'webkit-playsinline' );
         video.setAttribute( 'playsinline', 'playsinline' );
         video.setAttribute( 'autoplay', 'true' );
@@ -192,6 +196,18 @@
 
         renderer.render( scene, camera );
 
+    }
+
+    function getParameterByName(name, url) {
+        if (!url) {
+            url = window.location.href;
+        }
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
 </script>
